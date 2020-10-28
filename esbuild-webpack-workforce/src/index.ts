@@ -95,7 +95,7 @@ async function bundle({ entryPoints, minify = false, destLoc }) {
         bundle: true,
         format: 'esm',
         write: true,
-        entryPoints, // TODO replace entrypoints with virtual entries that inject stuff in window
+        entryPoints, // TODO replace entrypoints with virtual entries that inject stuff in window with specified name
         outdir: destLoc,
         minify: Boolean(minify),
         logLevel: 'info',
