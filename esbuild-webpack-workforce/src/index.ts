@@ -22,6 +22,7 @@ export async function esbuildWorkforce({
     auto?: boolean
     packages?: string[]
 }) {
+    // TODO this will duplicate dependencies, i have to compile all dependencies or it will not work
     let entryPoints: string[] = packages || [] // TODO resolve packages to absolute path or maybe keep them as is and check only against request, this way i could have version mismatches
 
     if (auto) {
