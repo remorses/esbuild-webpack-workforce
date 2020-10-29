@@ -9,6 +9,7 @@ module.exports = async function ({ env }) {
                 console.log(config)
                 return esbuildWorkforce({
                     config,
+                    auto: true,
                     packages: [require.resolve('cesium')],
                 })
             },

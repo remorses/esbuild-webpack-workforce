@@ -46,7 +46,7 @@ export async function traverseWithEsbuild({
             minifyWhitespace: false,
             mainFields: ['module', 'browser', 'main'].filter(Boolean),
             loader: {
-                js: 'jsx',
+                '.js': 'jsx',
             },
             // sourcemap: 'inline', // TODO sourcemaps panics and gives a lot of CPU load
             define: {
@@ -55,6 +55,7 @@ export async function traverseWithEsbuild({
                 // TODO defined to make any package work
                 // ...generateEnvReplacements(env),
             },
+            // TODO implement stopTraversing as a resolver that return {external: true} for non files inside node_modules?
             // TODO inject polyfills for runtime globals like process, ...etc
             // TODO allow importing from node builtins when using allowNodeImports
             // TODO add plugin for pnp resolution
