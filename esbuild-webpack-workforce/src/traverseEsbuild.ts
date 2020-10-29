@@ -81,8 +81,6 @@ export async function traverseWithEsbuild({
             }),
         )
         return res
-    } catch (e) {
-        throw e
     } finally {
         await fsx.remove(destLoc)
     }
