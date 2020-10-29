@@ -30,6 +30,7 @@
     "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
     "license": "ISC",
     "devDependencies": {
+        "jest": "^26.6.1",
         "@pika/react": "^16.13.1",
         "@pika/react-dom": "^16.13.1",
         "@types/es-module-lexer": "^0.3.0",

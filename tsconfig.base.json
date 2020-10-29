@@ -4,8 +4,9 @@
         "target": "ES5",
         "module": "commonjs",
         "importHelpers": true,
-        "allowJs": true,
+        // "allowJs": true,
         "moduleResolution": "Node",
+        "downlevelIteration": true,
         "rootDir": "src",
         "lib": [
             "es2017",

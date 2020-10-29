@@ -45,6 +45,9 @@ export async function traverseWithEsbuild({
             minifySyntax: false,
             minifyWhitespace: false,
             mainFields: ['module', 'browser', 'main'].filter(Boolean),
+            loader: {
+                js: 'jsx',
+            },
             // sourcemap: 'inline', // TODO sourcemaps panics and gives a lot of CPU load
             define: {
                 'process.env.NODE_ENV': JSON.stringify('dev'),

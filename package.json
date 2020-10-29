@@ -1,16 +1,14 @@
 {
     "private": true,
-    
     "workspaces": [
         "esbuild-webpack-workforce",
         "example-linked-package",
-        "example"
+        "example",
+        "example-app"
     ],
     "scripts": {
         "watch": "tsc -b -w",
         "test": "jest"
     },
-    "devDependencies": {
-        "jest": "^26.6.1"
-    }
+    "devDependencies": {}
 }

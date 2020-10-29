@@ -29,7 +29,7 @@ export const defaultResolver = (root: string, id: string) => {
         return (
             resolve.sync(id, {
                 basedir: root,
-                extensions: [...JS_EXTENSIONS],
+                extensions: [...Array.from(JS_EXTENSIONS)],
                 // necessary to work with pnpm
                 preserveSymlinks: isRunningWithYarnPnp || false,
             }) || ''
