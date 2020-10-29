@@ -7,7 +7,10 @@ module.exports = async function ({ env }) {
         webpack: {
             configure: (config, { env }) => {
                 console.log(config)
-                return esbuildWorkforce(config)
+                return esbuildWorkforce({
+                    config,
+                    packages: [require.resolve('cesium')],
+                })
             },
         },
     }

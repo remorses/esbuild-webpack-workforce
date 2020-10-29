@@ -13,19 +13,31 @@ import resolve from 'resolve'
 // get entries form webpack, use these as entrypoints for the esbuild imports analyzer, find all the dependencies imported files
 // in the webpack externals function resolve every path (if not relative) and check if esbuild has a bundle for that path, if yes then replace it with the associated global object
 // TODO how to use the webpack logic for resolution?
-export async function esbuildWorkforce(config: Configuration) {
-    let entries = Array.isArray(config.entry)
-        ? config.entry
-        : typeof config.entry === 'string'
-        ? [config.entry]
-        : Object.values(config.entry)
-    entries = entries.map((x) => path.resolve(x)) // TODO resolve from the webpack root?
-    const res = await traverseWithEsbuild({
-        // TODO only get the node_modules stuff, stop traversing at non relative and non node_modules
-        entryPoints: entries,
-    })
+export async function esbuildWorkforce({
+    config,
+    auto,
+    packages,
+}: {
+    config: Configuration
+    auto?: boolean
+    packages?: string[]
+}) {
+    let entryPoints: string[] = packages || [] // TODO resolve packages to absolute path or maybe keep them as is and check only against request, this way i could have version mismatches
 
-    const entryPoints = res.map((x) => x.resolvedImportPath)
+    if (auto) {
+        let entries = Array.isArray(config.entry)
+            ? config.entry
+            : typeof config.entry === 'string'
+            ? [config.entry]
+            : Object.values(config.entry)
+        entries = entries.map((x) => path.resolve(x)) // TODO resolve from the webpack root?
+        const res = await traverseWithEsbuild({
+            // TODO only get the node_modules stuff, stop traversing at non relative and non node_modules
+            entryPoints: entries,
+        })
+
+        entryPoints = res.map((x) => x.resolvedImportPath)
+    }
 
     const { mapEntryToBundle, mapEntryToName } = await bundle({
         destLoc: './bundled',
@@ -79,9 +91,9 @@ async function bundle({ entryPoints, minify = false, destLoc }) {
         // external: externalPackages,
         minifyIdentifiers: Boolean(minify),
         minifySyntax: Boolean(minify),
-        loader: {
-            js: 'jsx',
-        },
+        // loader: {
+        //     js: 'jsx',
+        // },
         minifyWhitespace: Boolean(minify),
         mainFields: ['browser:module', 'module', 'browser', 'main'].filter(
             Boolean,
